@@ -6,7 +6,7 @@ import ItemList from "./ItemList";
 import Footer from "./Footer";
 import { FILTER_STATE } from "../const/filter-state";
 
-function AppHooks() {
+function Top() {
   const [todos, setTodos] = useState(
     JSON.parse(localStorage.getItem("todos")) || []
   );
@@ -87,4 +87,4 @@ function AppHooks() {
   );
 }
 
-export default AppHooks;
+export default Top;

@@ -1,24 +1,23 @@
 import "../css/App.css";
 
 function TodoItem(props) {
+  const detailItemPath = "/detail/" + props.itemIndex;
+
   return (
-    <li className="todo-item">
+    <li>
       <label htmlFor={props.todo.createdAt}>
         <input
           type="checkbox"
           id={props.todo.createdAt}
           checked={props.todo.isDone}
-          // なんでここは無名関数なの？2021/04/14
           onChange={() => props.toggleCheck(props.todo.createdAt)}
         />
         {props.todo.title}
       </label>
-      <button
-        className="delete-button"
-        onClick={() => props.deleteTodo(props.todo.createdAt)}
-      >
-        ×
-      </button>
+      <button onClick={() => props.deleteTodo(props.todo.createdAt)}>×</button>
+      <a href={detailItemPath}>
+        <button>詳細</button>
+      </a>
     </li>
   );
 }

@@ -3,11 +3,12 @@ import TodoItem from "./TodoItem";
 import { FILTER_STATE } from "../const/filter-state";
 
 function ItemList(props) {
-  const todoElements = props.todos.map((todo) => {
+  const todoElements = props.todos.map((todo, index) => {
     if (props.filterState === FILTER_STATE.ALL) {
       return (
         <TodoItem
           key={todo.createdAt}
+          itemIndex={index}
           todo={todo}
           toggleCheck={props.toggleCheck}
           deleteTodo={props.deleteTodo}
@@ -19,6 +20,7 @@ function ItemList(props) {
         return (
           <TodoItem
             key={todo.createdAt}
+            itemIndex={index}
             todo={todo}
             toggleCheck={props.toggleCheck}
             deleteTodo={props.deleteTodo}
@@ -31,6 +33,7 @@ function ItemList(props) {
         return (
           <TodoItem
             key={todo.createdAt}
+            itemIndex={index}
             todo={todo}
             toggleCheck={props.toggleCheck}
             deleteTodo={props.deleteTodo}
