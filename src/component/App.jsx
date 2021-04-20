@@ -27,7 +27,6 @@ function App() {
     setFilterState(e.target.value);
   }
 
-  // １文字ずつしか入力できなくなった。2021/04/16
   function updateInputText(e) {
     setInputText(e.target.value);
   }
@@ -104,40 +103,30 @@ function App() {
     <BrowserRouter>
       <React.Fragment>
         <Route path="/" component={Header} />
-        <Route
-          exact
-          path="/"
-          component={() => (
-            <Home
-              addTodo={addTodo}
-              inputText={inputText}
-              updateInputText={updateInputText}
-              todos={todos}
-              toggleCheck={toggleCheck}
-              deleteTodo={deleteTodo}
-              filterState={filterState}
-              changeFilterState={changeFilterState}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/detail/:id"
-          component={() => <Detail todos={todos} />}
-        />
-        <Route
-          exact
-          path="/edit/:id"
-          component={() => (
-            <Edit
-              todos={todos}
-              updateTodo={updateTodo}
-              editingText={editingText}
-              updateEditingText={updateEditingText}
-              inputEditingText={inputEditingText}
-            />
-          )}
-        />
+        <Route exact path="/">
+          <Home
+            addTodo={addTodo}
+            inputText={inputText}
+            updateInputText={updateInputText}
+            todos={todos}
+            toggleCheck={toggleCheck}
+            deleteTodo={deleteTodo}
+            filterState={filterState}
+            changeFilterState={changeFilterState}
+          />
+        </Route>
+        <Route exact path="/detail/:id">
+          <Detail todos={todos} />
+        </Route>
+        <Route exact path="/edit/:id">
+          <Edit
+            todos={todos}
+            updateTodo={updateTodo}
+            editingText={editingText}
+            updateEditingText={updateEditingText}
+            inputEditingText={inputEditingText}
+          />
+        </Route>
       </React.Fragment>
     </BrowserRouter>
   );
