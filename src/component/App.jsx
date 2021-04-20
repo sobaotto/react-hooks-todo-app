@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Home from "./Home";
 import Detail from "./Detail";
+import Edit from "./Edit";
 import { FILTER_STATE } from "../const/filter-state";
 import Header from "./Header";
 
@@ -10,26 +11,39 @@ function App() {
   const [todos, setTodos] = useState(
     JSON.parse(localStorage.getItem("todos")) || []
   );
-  const [newTodoTitle, setNewTodoTitle] = useState("");
+  const [inputText, setInputText] = useState("");
+  const [editingText, setEditingText] = useState("");
   const [filterState, setFilterState] = useState(FILTER_STATE.ALL);
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   });
 
-  // １文字ずつしか入力できなくなった。2021/04/16
-  function inputText(e) {
-    setNewTodoTitle(e.target.value);
-  }
+  const redirectToRoot = () => {
+    window.location.pathname = "/";
+  };
 
   function changeFilterState(e) {
-    setFilterState(e.target.textContent);
+    setFilterState(e.target.value);
+  }
+
+  // １文字ずつしか入力できなくなった。2021/04/16
+  function updateInputText(e) {
+    setInputText(e.target.value);
+  }
+
+  function updateEditingText(e) {
+    setEditingText(e.target.value);
+  }
+
+  function inputEditingText(editingTitle) {
+    setEditingText(editingTitle);
   }
 
   function addTodo(e) {
     e.preventDefault();
 
-    if (newTodoTitle.trim() === "") {
+    if (inputText.trim() === "") {
       return;
     }
 
@@ -37,11 +51,29 @@ function App() {
     todosCopy.push({
       createdAt: new Date(),
       isDone: false,
-      title: newTodoTitle,
+      title: inputText,
     });
 
     setTodos(todosCopy);
-    setNewTodoTitle("");
+    setInputText("");
+  }
+
+  function updateTodo(e) {
+    e.preventDefault();
+    const editingItemId = e.target.id;
+    console.log(editingText);
+
+    if (editingText.trim() === "") {
+      return;
+    }
+
+    const todosCopy = todos.slice();
+    todosCopy[editingItemId].title = editingText;
+    console.log(todosCopy);
+
+    setTodos(todosCopy);
+    setEditingText("");
+    redirectToRoot();
   }
 
   function deleteTodo(targetTodoCreatedAt) {
@@ -78,8 +110,8 @@ function App() {
           component={() => (
             <Home
               addTodo={addTodo}
-              newTodoTitle={newTodoTitle}
               inputText={inputText}
+              updateInputText={updateInputText}
               todos={todos}
               toggleCheck={toggleCheck}
               deleteTodo={deleteTodo}
@@ -88,7 +120,24 @@ function App() {
             />
           )}
         />
-        <Route exact path="/detail/:id" component={Detail} />
+        <Route
+          exact
+          path="/detail/:id"
+          component={() => <Detail todos={todos} />}
+        />
+        <Route
+          exact
+          path="/edit/:id"
+          component={() => (
+            <Edit
+              todos={todos}
+              updateTodo={updateTodo}
+              editingText={editingText}
+              updateEditingText={updateEditingText}
+              inputEditingText={inputEditingText}
+            />
+          )}
+        />
       </React.Fragment>
     </BrowserRouter>
   );

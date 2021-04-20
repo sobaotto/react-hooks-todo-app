@@ -1,12 +1,26 @@
 import "../css/App.css";
-import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
 function Detail(props) {
-  const { id } = props.match.params;
-  // stateを受け取れなくて結局ここで改めてstateを宣言してしまった。2021/04/16
-  const [todos] = useState(JSON.parse(localStorage.getItem("todos")) || []);
+  const { id } = useParams();
 
-  return <div className="container">{todos[id].title}</div>;
+  return (
+    <div className="container">
+      <table border="1" className="todo-table">
+        <tr>
+          <th>進捗</th>
+          <td> {props.todos[id].isDone ? "完了" : "未完了"}</td>
+        </tr>
+        <tr>
+          <th>タスク名</th>
+          <td> {props.todos[id].title}</td>
+        </tr>
+      </table>
+      <a href="/">
+        <button>戻る</button>
+      </a>
+    </div>
+  );
 }
 
 export default Detail;

@@ -9,8 +9,8 @@ function Home(props) {
     <div className="container">
       <AddForm
         addTodo={props.addTodo}
-        newTodoTitle={props.newTodoTitle}
         inputText={props.inputText}
+        updateInputText={props.updateInputText}
       />
       <ItemList
         todos={props.todos}
@@ -18,8 +18,10 @@ function Home(props) {
         deleteTodo={props.deleteTodo}
         filterState={props.filterState}
       />
-      <Footer changeFilterState={props.changeFilterState} />
-      <p>[{props.filterState}]を表示</p>
+      <Footer
+        changeFilterState={props.changeFilterState}
+        filterState={props.filterState}
+      />
     </div>
   );
 }

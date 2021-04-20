@@ -4,7 +4,10 @@ import Filter from "./Filter";
 function Footer(props) {
   return (
     <div className="footer">
-      <Filter changeFilterState={props.changeFilterState} />
+      <Filter
+        changeFilterState={props.changeFilterState}
+        filterState={props.filterState}
+      />
     </div>
   );
 }

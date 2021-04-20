@@ -2,6 +2,7 @@ import "../css/App.css";
 
 function TodoItem(props) {
   const detailItemPath = "/detail/" + props.itemIndex;
+  const editItemPath = "/edit/" + props.itemIndex;
 
   return (
     <li>
@@ -15,6 +16,9 @@ function TodoItem(props) {
         {props.todo.title}
       </label>
       <button onClick={() => props.deleteTodo(props.todo.createdAt)}>×</button>
+      <a href={editItemPath}>
+        <button>編集</button>
+      </a>
       <a href={detailItemPath}>
         <button>詳細</button>
       </a>
