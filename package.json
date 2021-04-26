@@ -1,6 +1,6 @@
 {
   "name": "ts-react-todo",
-  "version": "0.1.0",
+  "version": "0.1.0", 
   "homepage": "https://sobaotto.github.io/react-hooks-todo-app/",
   "private": true,
   "dependencies": {
