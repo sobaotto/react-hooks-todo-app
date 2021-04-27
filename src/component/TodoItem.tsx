@@ -1,4 +1,6 @@
 import "../css/App.css";
+import { useHistory } from "react-router-dom";
+
 
 type Todo = {
   createdAt: string;
@@ -14,8 +16,8 @@ type TodoItemProps = {
 };
 
 const TodoItem = (props: TodoItemProps): JSX.Element => {
-  const detailItemPath: string = "/detail/" + props.itemIndex;
-  const editItemPath: string = "/edit/" + props.itemIndex;
+  const history = useHistory();
+  const handleLink = (path: any) => history.push(path);
 
   return (
     <li>
@@ -29,12 +31,8 @@ const TodoItem = (props: TodoItemProps): JSX.Element => {
         {props.todo.title}
       </label>
       <button onClick={() => props.deleteTodo(props.todo.createdAt)}>×</button>
-      <a href={editItemPath}>
-        <button>編集</button>
-      </a>
-      <a href={detailItemPath}>
-        <button>詳細</button>
-      </a>
+      <button onClick={() => handleLink(`/edit/${props.itemIndex}`)}>編集</button>
+      <button onClick={() => handleLink(`/detail/${props.itemIndex}`)}>詳細</button>
     </li>
   );
 };
