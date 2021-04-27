@@ -1,21 +1,8 @@
 import "../css/App.css";
 
-type Todo = {
-  createdAt: string;
-  isDone: boolean;
-  title: string;
-};
-
-type TodoItemProps = {
-  itemIndex: number;
-  todo: Todo;
-  toggleCheck: Function;
-  deleteTodo: Function;
-};
-
-const TodoItem = (props: TodoItemProps): JSX.Element => {
-  const detailItemPath: string = "/detail/" + props.itemIndex;
-  const editItemPath: string = "/edit/" + props.itemIndex;
+function TodoItem(props) {
+  const detailItemPath = "/detail/" + props.itemIndex;
+  const editItemPath = "/edit/" + props.itemIndex;
 
   return (
     <li>
@@ -37,6 +24,6 @@ const TodoItem = (props: TodoItemProps): JSX.Element => {
       </a>
     </li>
   );
-};
+}
 
-export { TodoItem };
+export default TodoItem;
