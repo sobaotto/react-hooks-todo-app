@@ -1,8 +1,21 @@
 import "../css/App.css";
 
-function TodoItem(props) {
-  const detailItemPath = "/detail/" + props.itemIndex;
-  const editItemPath = "/edit/" + props.itemIndex;
+type Todo = {
+  createdAt: string;
+  isDone: boolean;
+  title: string;
+};
+
+type TodoItemProps = {
+  itemIndex: number;
+  todo: Todo;
+  toggleCheck: Function;
+  deleteTodo: Function;
+};
+
+const TodoItem = (props: TodoItemProps): JSX.Element => {
+  const detailItemPath: string = "/detail/" + props.itemIndex;
+  const editItemPath: string = "/edit/" + props.itemIndex;
 
   return (
     <li>
@@ -24,6 +37,6 @@ function TodoItem(props) {
       </a>
     </li>
   );
-}
+};
 
-export default TodoItem;
+export { TodoItem };
