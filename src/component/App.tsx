@@ -1,6 +1,6 @@
 import "../css/App.css";
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, useHistory } from "react-router-dom";
 import { Home } from "./Home";
 import { Detail } from "./Detail";
 import { Edit } from "./Edit";
@@ -25,7 +25,11 @@ const App = (): JSX.Element => {
   }, [todos]);
 
   const redirectToRoot = (): void => {
-    window.location.pathname = "/";
+
+    const history = useHistory();
+    // const handleLink = (path: any) => history.push(path);
+    history.push("/");
+    // window.location.pathname = "/";
   };
 
   const changeFilterState = (e: React.ChangeEvent<HTMLInputElement>): void => {
