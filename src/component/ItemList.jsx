@@ -1,28 +1,9 @@
-import { FILTER_STATE } from "../const/filter-state";
 import "../css/App.css";
-import { TodoItem } from "./TodoItem";
+import TodoItem from "./TodoItem";
+import { FILTER_STATE } from "../const/filter-state";
 
-type Todo = {
-  createdAt: string;
-  isDone: boolean;
-  title: string;
-};
-
-type ItemListProps = {
-  todos: [
-    {
-      createdAt: string;
-      isDone: boolean;
-      title: string;
-    }
-  ];
-  toggleCheck: Function;
-  deleteTodo: Function;
-  filterState: string;
-};
-
-const ItemList = (props: ItemListProps): JSX.Element => {
-  const todoElements = props.todos.map((todo: Todo, index: number) => {
+function ItemList(props) {
+  const todoElements = props.todos.map((todo, index) => {
     if (props.filterState === FILTER_STATE.ALL) {
       return (
         <TodoItem
@@ -60,10 +41,9 @@ const ItemList = (props: ItemListProps): JSX.Element => {
         );
       }
     }
-    return undefined;
   });
 
   return <ul>{todoElements}</ul>;
-};
+}
 
-export { ItemList };
+export default ItemList;

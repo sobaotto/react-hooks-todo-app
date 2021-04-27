@@ -1,7 +1,7 @@
 import "../css/App.css";
 
-const Header = (): JSX.Element => {
+function Header() {
   return <h1 className="container">To Do List</h1>;
-};
+}
 
-export { Header };
+export default Header;
