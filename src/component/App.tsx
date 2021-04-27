@@ -25,11 +25,7 @@ const App = (): JSX.Element => {
   }, [todos]);
 
   const redirectToRoot = (): void => {
-
-    const history = useHistory();
-    // const handleLink = (path: any) => history.push(path);
-    history.push("/");
-    // window.location.pathname = "/";
+    window.location.pathname = "/";
   };
 
   const changeFilterState = (e: React.ChangeEvent<HTMLInputElement>): void => {
