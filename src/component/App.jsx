@@ -1,57 +1,52 @@
 import "../css/App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import { Home } from "./Home";
-import { Detail } from "./Detail";
-import { Edit } from "./Edit";
-import { Header } from "./Header";
+import Home from "./Home";
+import Detail from "./Detail";
+import Edit from "./Edit";
+import { FILTER_STATE } from "../const/filter-state";
+import Header from "./Header";
 
-type Todo = {
-  createdAt: Date;
-  isDone: boolean;
-  title: string;
-};
-
-const App = (): JSX.Element => {
+function App() {
   const [todos, setTodos] = useState(
-    JSON.parse(localStorage.getItem("todos") as string) || []
+    JSON.parse(localStorage.getItem("todos")) || []
   );
   const [inputText, setInputText] = useState("");
   const [editingText, setEditingText] = useState("");
-  const [filterState, setFilterState] = useState("all");
+  const [filterState, setFilterState] = useState(FILTER_STATE.ALL);
 
-  useEffect((): void => {
+  useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+  });
 
-  const redirectToRoot = (): void => {
+  const redirectToRoot = () => {
     window.location.pathname = "/";
   };
 
-  const changeFilterState = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  function changeFilterState(e) {
     setFilterState(e.target.value);
-  };
+  }
 
-  const updateInputText = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  function updateInputText(e) {
     setInputText(e.target.value);
-  };
+  }
 
-  const updateEditingText = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  function updateEditingText(e) {
     setEditingText(e.target.value);
-  };
+  }
 
-  const inputEditingText = (editingTitle: string): void => {
+  function inputEditingText(editingTitle) {
     setEditingText(editingTitle);
-  };
+  }
 
-  const addTodo = (e: React.FormEvent<HTMLFormElement>): void => {
+  function addTodo(e) {
     e.preventDefault();
 
     if (inputText.trim() === "") {
       return;
     }
 
-    const todosCopy: Todo[] = [...todos];
+    const todosCopy = todos.slice();
     todosCopy.push({
       createdAt: new Date(),
       isDone: false,
@@ -60,54 +55,52 @@ const App = (): JSX.Element => {
 
     setTodos(todosCopy);
     setInputText("");
-  };
+  }
 
-  const updateTodo = (e: React.FormEvent<HTMLFormElement>) => {
+  function updateTodo(e) {
     e.preventDefault();
-
-    const editingItemIdString: string = e.currentTarget.id;
-    const editingItemId = parseInt(editingItemIdString);
+    const editingItemId = e.target.id;
+    console.log(editingText);
 
     if (editingText.trim() === "") {
       return;
     }
 
-    const todosCopy: Todo[] = [...todos];
+    const todosCopy = todos.slice();
     todosCopy[editingItemId].title = editingText;
+    console.log(todosCopy);
 
     setTodos(todosCopy);
     setEditingText("");
     redirectToRoot();
-  };
+  }
 
-  const deleteTodo = (targetTodoCreatedAt: Date) => {
-    const todosCopy: Todo[] = [...todos];
+  function deleteTodo(targetTodoCreatedAt) {
+    const todosCopy = todos.slice();
 
-    const newTodos: Todo[] = todosCopy.filter(
-      (todo: Todo) => todo.createdAt !== targetTodoCreatedAt
+    const newTodos = todosCopy.filter(
+      (todo) => todo.createdAt !== targetTodoCreatedAt
     );
     setTodos(newTodos);
-  };
+  }
 
-  const toggleCheck = (targetTodoCreatedAt: Date) => {
-    const createdAtArray: Date[] = todos.map((todo: Todo) => todo.createdAt);
+  function toggleCheck(targetTodoCreatedAt) {
+    const createdAtArray = todos.map((todo) => todo.createdAt);
 
-    const editingTodoIndex: number = createdAtArray.indexOf(
-      targetTodoCreatedAt
-    );
+    const editingTodoIndex = createdAtArray.indexOf(targetTodoCreatedAt);
 
-    const todosCopy: Todo[] = [...todos];
-    const checkedState: boolean = todosCopy[editingTodoIndex].isDone;
+    const todosCopy = todos.slice();
+    const checkedState = todosCopy[editingTodoIndex].isDone;
 
     checkedState
       ? (todosCopy[editingTodoIndex].isDone = false)
       : (todosCopy[editingTodoIndex].isDone = true);
 
     setTodos(todosCopy);
-  };
+  }
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter>
       <React.Fragment>
         <Route path="/" component={Header} />
         <Route exact path="/">
@@ -137,6 +130,6 @@ const App = (): JSX.Element => {
       </React.Fragment>
     </BrowserRouter>
   );
-};
+}
 
-export { App };
+export default App;
