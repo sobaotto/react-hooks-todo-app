@@ -1,5 +1,5 @@
 import "../css/App.css";
-import { useParams,useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 type DetailProps = {
   todos: [
@@ -20,14 +20,13 @@ const Detail = (props: DetailProps): JSX.Element => {
   const idString = params.id;
   const id = parseInt(idString);
 
-  const history = useHistory();
-  const handleLink = (path: any) => history.push(path);
-
   return (
     <div className="container">
       <p>進捗：{props.todos[id].isDone ? "完了" : "未完了"}</p>
       <p>タスク名：{props.todos[id].title}</p>
-      <button onClick={() => handleLink("/")}>戻る</button>
+      <a href="/">
+        <button>戻る</button>
+      </a>
     </div>
   );
 };

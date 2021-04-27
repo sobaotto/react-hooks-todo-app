@@ -1,6 +1,6 @@
 import "../css/App.css";
 import { useEffect } from "react";
-import { useParams,useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 type EditProps = {
   todos: [
@@ -25,9 +25,6 @@ const Edit = (props: EditProps): JSX.Element => {
   const idString = params.id;
   const id = parseInt(idString);
 
-  const history = useHistory();
-  const handleLink = (path: any) => history.push(path);
-
   useEffect(() => {
     if (!props.editingText) {
       props.inputEditingText(props.todos[id].title);
@@ -44,7 +41,10 @@ const Edit = (props: EditProps): JSX.Element => {
         />
         <input type="submit" value="更新" />
       </form>
-      <button onClick={() => handleLink("/")}>戻る</button>
+
+      <a href="/">
+        <button>戻る</button>
+      </a>
     </div>
   );
 };
