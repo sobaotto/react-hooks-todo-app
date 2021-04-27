@@ -1,12 +1,7 @@
 import { FILTER_STATE } from "../const/filter-state";
 import "../css/App.css";
 
-type FilterProps = {
-  filterState: string;
-  changeFilterState: React.ChangeEventHandler<HTMLInputElement>;
-};
-
-const Filter = (props: FilterProps): JSX.Element => {
+function Filter(props) {
   return (
     <form id="filterList">
       <label>
@@ -41,6 +36,6 @@ const Filter = (props: FilterProps): JSX.Element => {
       </label>
     </form>
   );
-};
+}
 
-export { Filter };
+export default Filter;
