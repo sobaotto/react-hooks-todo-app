@@ -1,6 +1,6 @@
 import "../css/App.css";
 import { useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 type EditProps = {
   todos: [

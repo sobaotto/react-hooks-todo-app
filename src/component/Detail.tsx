@@ -1,5 +1,5 @@
 import "../css/App.css";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 type DetailProps = {
   todos: [
