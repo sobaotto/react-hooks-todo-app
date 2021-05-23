@@ -1,7 +1,6 @@
 import "../css/App.css";
 import { useHistory } from "react-router-dom";
 
-
 type Todo = {
   createdAt: string;
   isDone: boolean;
@@ -16,9 +15,6 @@ type TodoItemProps = {
 };
 
 const TodoItem = (props: TodoItemProps): JSX.Element => {
-  const history = useHistory();
-  const handleLink = (path: any) => history.push(path);
-
   return (
     <li>
       <label htmlFor={props.todo.createdAt}>
@@ -31,8 +27,28 @@ const TodoItem = (props: TodoItemProps): JSX.Element => {
         {props.todo.title}
       </label>
       <button onClick={() => props.deleteTodo(props.todo.createdAt)}>×</button>
-      <button onClick={() => handleLink(`/edit/${props.itemIndex}`)}>編集</button>
-      <button onClick={() => handleLink(`/detail/${props.itemIndex}`)}>詳細</button>
+      <button
+        onClick={() => {
+          window.history.pushState(
+            { test: "hoge", bala: 4 },
+            "新しく追加された履歴エントリー",
+            `/edit/${props.itemIndex}`
+          );
+        }}
+      >
+        編集
+      </button>
+      <button
+        onClick={() => {
+          window.history.pushState(
+            { test: "hoge", bala: 4 },
+            "新しく追加された履歴エントリー",
+            `/detail/${props.itemIndex}`
+          );
+        }}
+      >
+        詳細
+      </button>
     </li>
   );
 };

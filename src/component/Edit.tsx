@@ -1,6 +1,6 @@
 import "../css/App.css";
 import { useEffect } from "react";
-import { useParams,useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 type EditProps = {
   todos: [
@@ -25,9 +25,6 @@ const Edit = (props: EditProps): JSX.Element => {
   const idString = params.id;
   const id = parseInt(idString);
 
-  const history = useHistory();
-  const handleLink = (path: any) => history.push(path);
-
   useEffect(() => {
     if (!props.editingText) {
       props.inputEditingText(props.todos[id].title);
@@ -44,7 +41,17 @@ const Edit = (props: EditProps): JSX.Element => {
         />
         <input type="submit" value="更新" />
       </form>
-      <button onClick={() => handleLink("/")}>戻る</button>
+      <button
+        onClick={() => {
+          window.history.pushState(
+            { test: "hoge", bala: 4 },
+            "新しく追加された履歴エントリー",
+            "/"
+          );
+        }}
+      >
+        戻る
+      </button>
     </div>
   );
 };
